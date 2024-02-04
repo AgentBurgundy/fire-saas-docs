@@ -29,3 +29,19 @@ The default SubscriptionCard components I wrote, really expect Two products, but
 NOTE My SubscriptionCard components also expect additional metadata for the products. You may want to skip this if you plan to customize how you display your products.
 
 I add a buttonText metadata for the text on the purchase button and a popular metadata, to define if a product is popular or not (string of true or false)
+
+---
+
+### **Adjusting the Features Map**
+
+Finally, once your products are added you need to adjust the SubscriptionCard component's featuresMap.
+
+```js
+// ./src/components/subscription/SubscriptionCard.tsx
+const featuresMap: any = {
+  "Basic Plan": ["Feature 1", "Feature 2", "Feature 3"],
+  "Premium Plan": ["Feature 1", "Feature 2", "Feature 3", "Feature 4"],
+};
+```
+
+Adjust the plan names to match your product plan names exactly, and add the features you'd like to display on the Subscription card.
