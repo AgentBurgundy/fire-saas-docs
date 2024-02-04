@@ -1,0 +1,117 @@
+import { Callout } from "nextra-theme-docs";
+
+# Stripe-Firebase Extension Setup
+
+This guide continues from the FireSaaS setup process, focusing on the Stripe-Firebase extension, Firestore security rules, and Stripe webhook configuration.
+
+## Table of Contents
+
+- [Stripe-Firebase Extension](#stripe-firebase-extension)
+- [Firestore Security Rules](#firestore-security-rules)
+- [Stripe Webhook](#stripe-webhook)
+
+---
+
+### **Stripe-Firebase Extension**
+
+Stripe provides us with a Firebase extension, we're going to enable that.
+
+Basically it helps us synchronize Stripe data with Firebase Firestore.
+
+Keep the Stripe dashboard open because you'll need it soon.
+
+This is the url to the Stripe extension https://extensions.dev/extensions/stripe/firestore-stripe-payments
+
+Install it.
+
+<Callout emoji="📣">
+  {" "}
+  IMPORTANT in the settings for the extension, we're going to rename the Customer details and subscriptions collection to our users collection.
+
+</Callout>
+
+![Demo 11](../public/demo-11.avif)
+
+Go back to the stripe dashboard, Developers -> API Keys
+
+Generate a new Restricted Key with
+
+- Write access to Customers
+- Write access to Checkout Sessions
+- Write access to Customer Portal
+- Read access to Subscriptions
+
+Once saved, copy the Restricted Key and put it in the Firebase Extension config as Stripe API Key with Restricted Access.
+
+Now you can hit Install Extension (this will take a few minutes)
+
+---
+
+### **Firestore Security Rules**
+
+I recommend these Firestore security rules when using this extension.
+
+```js copy
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth.uid == uid;
+
+      match /checkout_sessions/{id} {
+        allow read, write: if request.auth.uid == uid;
+      }
+      match /subscriptions/{id} {
+        allow read: if request.auth.uid == uid;
+      }
+    }
+
+    match /products/{id} {
+      allow read: if true;
+
+      match /prices/{id} {
+        allow read: if true;
+      }
+
+      match /tax_rates/{id} {
+        allow read: if true;
+      }
+    }
+  }
+}
+```
+
+---
+
+### **Stripe Webhook**
+
+But wait, there's more to do. Now we need to setup our Stripe Webhook
+
+To do that, we'll go back to our Stripe Dashboard, and click Developers > Webhooks.
+
+Copy the url from the Firebase Extension "How this extension works" tab, and paste it as a new Endpoint in Stripe webhooks.
+
+Select the following events to send to that endpoint:
+
+- product.created
+- product.updated
+- product.deleted
+- price.created
+- price.updated
+- price.deleted
+- checkout.session.completed
+- customer.subscription.created
+- customer.subscription.updated
+- customer.subscription.deleted
+- tax_rate.created (optional)
+- tax_rate.updated (optional)
+- invoice.paid (optional, will sync invoices to Cloud Firestore)
+- invoice.payment_succeeded (optional, will sync invoices to Cloud Firestore)
+- invoice.payment_failed (optional, will sync invoices to Cloud Firestore)
+- invoice.upcoming (optional, will sync invoices to Cloud Firestore)
+- invoice.marked_uncollectible (optional, will sync invoices to Cloud Firestore)
+- invoice.payment_action_required (optional, will sync invoices to Cloud Firestore)
+
+Once the webhook is complete, copy the signing secret (we need to add it to the extension config)
+
+Then Reconfigure your Extension, replacing the existing placeholder value within Stripe webhook secret to the webhook signing secret you just copied from the Stripe Dashboard.

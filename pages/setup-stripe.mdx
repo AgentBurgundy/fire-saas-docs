@@ -1,0 +1,43 @@
+import { Callout } from "nextra-theme-docs";
+
+# Setting Up Stripe
+
+We'll need to add our Stripe keys into the `.env`. Let's setup Stripe.
+
+## Table of Contents
+
+- [Getting Keys](#getting-keys)
+- [Setting up Customer Portal](#setting-up-customer-portal)
+
+---
+
+### **Getting Keys**
+
+<Callout emoji="📣">
+  {" "}
+  I'm going to assume you already have a Stripe account. If not, you'll need to create one. Head to https://stripe.com
+
+</Callout>
+
+First thing we need to do is grab your env vars for Stripe.
+
+We need these values.
+
+```json
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
+STRIPE_SECRET_KEY=""
+```
+
+On your Stripe dashboard, hit Developers. (I recommend also hitting Test for local keys before you deploy anything to prod.)
+
+Copy your publishable key and your secret key into the Env Vars.
+
+---
+
+### **Setting up Customer Portal**
+
+Users need to be able to manage their account right? Stripe provides an easy way to give users this functionality through their hosted portal. But you have to turn it on.
+
+Go to this url https://dashboard.stripe.com/settings/billing/portal
+
+You can customize the portal, but the most important thing is to simply enable it with the button on the left. Once enabled you're good to go (this project grabs customer portal links already!)

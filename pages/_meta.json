@@ -1,7 +1,11 @@
 {
-  "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "index": "Setup Firebase Project",
+  "setup-firebase-functions": "Setup Firebase Functions",
+  "setup-stripe": "Setup Stripe",
+  "stripe-firebase-extension": "Setup Firebase Extension",
+  "adding-products-to-stripe": "Adding Products to Stripe",
+  "setup-mixpanel": "Setup Mixpanel",
+  "wrapping-up": "Wrapping Up",
   "about": {
     "title": "About",
     "type": "page"
@@ -9,7 +13,7 @@
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://twitter.com/addicted_to_ai",
     "newWindow": true
   }
 }

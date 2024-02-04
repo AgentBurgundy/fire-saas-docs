@@ -1,0 +1,74 @@
+import { Callout } from "nextra-theme-docs";
+
+# Setting Up Firebase Functions
+
+Working with functions is meant to be easy in **FireSaaS**. This guide will go over deploying the new user created function and working with / adding new functions.
+
+## Table of Contents
+
+- [Adding Project ID](#adding-project-id)
+- [Setup Firebase CLI](#setup-firebase-cli)
+- [Testing Functions Locally](#testing-functions-locally)
+
+---
+
+<Callout emoji="📣">
+  {" "}
+  I prepackaged one function in this project. It creates database entries for your users when they create an account. Let's go ahead and deploy that now.
+
+</Callout>
+
+### **Adding Project ID**
+
+First we have to open the `.firebaserc` file inside the project.
+
+Add your project id here, you should have your project id in your Environment Variables already so copy it from there.
+
+```JSON
+// .firebaserc
+{
+  "projects": {
+    "default": "<PROJECT-ID-HERE>"
+  }
+}
+```
+
+---
+
+### **Setup Firebase CLI**
+
+Make sure you have the Firebase CLI setup
+
+```sh copy
+npm install -g firebase-tools
+```
+
+This installs firebase globally on your machine.
+
+Now we login
+
+```sh copy
+firebase login
+```
+
+Once you're logged in, cd into the functions directory
+
+Then we can cd into functions and run yarn deploy, once this finishes your functions are live.
+
+```sh copy
+cd functions
+```
+
+```sh copy
+yarn deploy
+```
+
+---
+
+### **Testing Functions Locally**
+
+You can run `yarn serve` inside the functions project to emulate functions locally. This is good for testing stuff out before you deploy.
+
+```sh copy
+yarn serve
+```
