@@ -8,9 +8,43 @@ Let's wrap up real quick by finishing up our .env file.
 
 ### **Site URL and Functions URL**
 
-You should have these as localhost for local .env
+The Nextjs project utilizes server side api calls, this means we need a fully qualified URL to hit our own API.
 
-When deploying, you should update these to the deployed url ie. https://firesaas.dev
+To solve this we have these two env variables
+
+```sh
+# Firebase Functions
+NEXT_PUBLIC_FIREBASE_FUNCTIONS_BASE_URL="http://127.0.0.1:5001/<project-id>/<region>"
+
+# Config
+NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+```
+
+When developing locally, you want these variables to reference localhost (as they already do).
+
+The only one you need to update for local development is the Firebase Functions Base url
+
+<Callout emoji="📣">
+  {" "}
+  You'll find project-id in your environment variables for the firebase config.
+
+The region is the region you setup on Firebase's console when creating your project. It's like **us-central1** if you're in the USA.
+
+</Callout>
+
+When deploying, you should update these to the deployed url, for example.
+
+If your url is https://mycoolsaas.com
+
+Your env var would look like this
+
+```sh
+# Firebase Functions - baseUrl that allows you hit firebase functions via HTTPS
+NEXT_PUBLIC_FIREBASE_FUNCTIONS_BASE_URL="https://<region>-<project-id>.cloudfunctions.net"
+
+# Config
+NEXT_PUBLIC_SITE_URL="http://mycoolsaas.com"
+```
 
 ### **Congrats**
 

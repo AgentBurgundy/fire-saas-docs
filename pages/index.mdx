@@ -10,6 +10,7 @@ This guide provides a step-by-step process for setting up your FireSaaS project.
 - [Copy Firebase Config Environment Variables](#copy-firebase-config-environment-variables)
 - [Enable Authentication and Firestore](#enable-authentication-and-firestore)
 - [Create Firebase Admin Service Account](#create-firebase-admin-service-account)
+- [Adding Project ID](#adding-project-id)
 
 ---
 
@@ -106,5 +107,22 @@ Click Generate new private key
 This will download a JSON file containing your key information. The easiest way to use this private key in my opinion is to open it up in a text editor and copy paste the important values we need to setup Firebase Admin into your .env
 
 Open the file and copy the entire private_key value and the client_email value into your .env
+
+---
+
+### **Adding Project ID**
+
+Finally we have to open the `.firebaserc` file inside the project.
+
+Add your project id here, you should have your project id in your Environment Variables already so copy it from there.
+
+```JSON
+// .firebaserc
+{
+  "projects": {
+    "default": "<PROJECT-ID-HERE>"
+  }
+}
+```
 
 That's all the Firebase Specific env vars.

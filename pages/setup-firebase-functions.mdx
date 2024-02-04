@@ -6,7 +6,7 @@ Working with functions is meant to be easy in **FireSaaS**. This guide will go o
 
 ## Table of Contents
 
-- [Adding Project ID](#adding-project-id)
+- [Node Version](#node-version)
 - [Setup Firebase CLI](#setup-firebase-cli)
 - [Testing Functions Locally](#testing-functions-locally)
 
@@ -18,19 +18,19 @@ Working with functions is meant to be easy in **FireSaaS**. This guide will go o
 
 </Callout>
 
-### **Adding Project ID**
+### **Node Version**
 
-First we have to open the `.firebaserc` file inside the project.
+I recommend using [NVM](https://github.com/nvm-sh/nvm) or if you're on Windows [NVM-for-Windows](https://github.com/coreybutler/nvm-windows) if you don't already to manage your node versions.
 
-Add your project id here, you should have your project id in your Environment Variables already so copy it from there.
+Firebase Functions requires Node 18, so make sure you have Node 18 installed globally
+or install it via NVM and use it.
 
-```JSON
-// .firebaserc
-{
-  "projects": {
-    "default": "<PROJECT-ID-HERE>"
-  }
-}
+```sh copy
+nvm install 18
+```
+
+```sh copy
+nvm use 18
 ```
 
 ---
@@ -59,9 +59,23 @@ Then we can cd into functions and run yarn deploy, once this finishes your funct
 cd functions
 ```
 
+You MUST run yarn first to install dependencies.
+
+```sh copy
+yarn
+```
+
+Then you can run deploy to deploy your functions to Firebase.
+
 ```sh copy
 yarn deploy
 ```
+
+<Callout emoji="📣">
+  {" "}
+  To deploy functions your Firebase account has to be on the **Blaze** account (Pay
+  as you Go). Running deploy will prompt you to set this up if it isn't already.
+</Callout>
 
 ---
 

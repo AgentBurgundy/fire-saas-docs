@@ -6,6 +6,14 @@ Let's create a product inside Stripe, so that our users can upgrade their accoun
 
 ---
 
+<Callout emoji="📣">
+  {" "}
+  Do not add products before your extension is done installing and the webhook is setup.
+
+Adding a product calls the webhook, so if you add a product before it's done your product will not show up until you update it.
+
+</Callout>
+
 Back at the Stripe Dashboard, click on Products, and Add Product.
 
 Enter the name of your product (something like "Premium Plan") and an optional description of the product.
